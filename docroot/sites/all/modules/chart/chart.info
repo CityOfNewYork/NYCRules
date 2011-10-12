@@ -1,0 +1,12 @@
+name = Chart API
+description = Google Chart API integration.
+package = Charting
+core = 7.x
+php = 5
+
+; Information added by drupal.org packaging script on 2011-03-13
+version = "7.x-1.0"
+core = "7.x"
+project = "chart"
+datestamp = "1300025767"
+

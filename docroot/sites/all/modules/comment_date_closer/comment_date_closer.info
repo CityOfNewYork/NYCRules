@@ -1,0 +1,7 @@
+name = Comment Date Closer
+description = "Allows users to close comment thread at the date specified on the node field."
+package = Comment Date Closer
+core = 7.x
+files[] = comment_date_closer.module
+files[] = comment_date_closer.install
+configure=admin/config/comment_date_closer/settings

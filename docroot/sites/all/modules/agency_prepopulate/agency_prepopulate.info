@@ -1,0 +1,5 @@
+; $Id:
+name = Agency prepopulate
+description = Prepopulates agency taxonomy field from user's group
+core=7.x
+files[] = private_comments.module

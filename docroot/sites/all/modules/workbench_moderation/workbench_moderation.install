@@ -1,0 +1,425 @@
+<?php
+
+/**
+ * @file
+ * Install file for the Workbench Moderation module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function workbench_moderation_install() {
+  // Create tables.
+  _workbench_moderation_insert_values();
+  db_update('system')
+    ->fields(array('weight' => 5))
+    ->condition('name', 'workbench_moderation')
+    ->execute();
+}
+
+/**
+ * Implements hook_schema().
+ */
+function workbench_moderation_schema() {
+  $schema['workbench_moderation_states'] = array(
+    'description' => 'Defines all possible states',
+    'fields' => array(
+      'name' => array(
+        'description' => 'The name of the moderation state.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'description' => array(
+        'description' => 'A description of the moderation state.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'weight' => array(
+        'description' => 'Sort weight for the moderation state.',
+        'type' => 'int',
+        'default' => 0,
+      ),
+    ),
+    'unique keys' => array('name' => array('name'))
+  );
+
+  $schema['workbench_moderation_transitions'] = array(
+    'description' => 'Defines the valid transitions for states',
+    'fields' => array(
+      'from_name' => array(
+        'description' => 'The starting moderation state.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'to_name' => array(
+        'description' => 'The ending moderation state.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+    ),
+  );
+
+  $schema['workbench_moderation_node_history'] = array(
+    'fields' => array(
+      'hid' => array(
+        'description' => 'Node history entry key.',
+        'type' => 'serial',
+        'not null' => TRUE
+      ),
+      'vid' => array(
+        'description' => 'Node revision id. Foreign key to {node_revision}',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'disp-width' => '10',
+      ),
+      'nid' => array(
+        'description' => 'Node id. Foreign key to {node}',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'disp-width' => '10',
+      ),
+      'from_state' => array(
+        'description' => 'The old moderation state of the node',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'state' => array(
+        'description' => 'The current moderation state of the node.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'uid' => array(
+        'description' => 'The user id of the moderator who made the change. Foreign key to {users}.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'disp-width' => '10',
+      ),
+      'stamp' => array(
+        'description' => 'The timestamp of the change.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'disp-width' => '10',
+      ),
+      'published' => array(
+        'description' => 'Indicated the live revision of a node.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'disp-width' => '10',
+      ),
+      'current' => array(
+        'description' => 'Indicated the current revision of a node.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'disp-width' => '10',
+      ),
+    ),
+    'primary key' => array('hid'),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'vid' => array('vid'),
+    ),
+    'foreign_keys' => array(
+      'nid' => array('node' => 'nid'),
+      'vid' => array('node_revision' => 'vid'),
+      'uid' => array('users' => 'uid'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Adds default data for workflow states
+ */
+function _workbench_moderation_insert_values() {
+  // Default states.
+  $states = array(
+    array(
+      'name' => workbench_moderation_state_none(),
+      'description' => 'Visible only to the author',
+      'weight' => -99,
+    ),
+    array(
+      'name' => 'Needs Review',
+      'description' => 'Visible to the author and editors',
+      'weight' => 0,
+    ),
+    array(
+      'name' => workbench_moderation_state_published(),
+      'description' => 'Visible to the world',
+      'weight' => 99,
+    ),
+  );
+
+  // Save default states to the database.
+  $query = db_insert('workbench_moderation_states')
+    ->fields(array('name', 'description', 'weight'));
+
+  foreach ($states as $state) {
+    $query->values($state);
+  }
+
+  $query->execute();
+
+  // Default transitions.
+  $transitions = array(
+    array(
+      'from_name' => workbench_moderation_state_none(),
+      'to_name' => 'Needs Review',
+    ),
+    array(
+      'from_name' => 'Needs Review',
+      'to_name' => workbench_moderation_state_none(),
+    ),
+    array(
+      'from_name' => 'Needs Review',
+      'to_name' => workbench_moderation_state_published(),
+    ),
+  );
+
+  // Save default transitions to the database.
+  $query = db_insert('workbench_moderation_transitions')
+    ->fields(array('from_name', 'to_name'));
+
+  foreach ($transitions as $transition) {
+    $query->values($transition);
+  }
+
+  $query->execute();
+}
+
+/**
+ * Update the 'weight' field on {workbench_moderation_states}.
+ *
+ * Accept standard Drupal weight values.
+ */
+function workbench_moderation_update_7001() {
+  db_change_field('workbench_moderation_states', 'weight', 'weight', array(
+    'description' => 'Sort weight for the moderation state.',
+    'type' => 'int',
+    'default' => 0,
+  ));
+
+  return t('Updated the weight field on the moderation states table.');
+}
+
+/**
+ * Drop the unused 'ntypes' field from workbench_moderation_transitions.
+ */
+function workbench_moderation_update_7002() {
+  db_drop_field('workbench_moderation_transitions', 'ntype');
+  return t('Dropped unused field from the moderation transitions table.');
+}
+
+/**
+ * Use "revision" instead of "version" when referring to node revisions.
+ */
+function workbench_moderation_update_7003() {
+  $old_permission = 'unpublish live version';
+  $new_permission = 'unpublish live revision';
+
+  // Which roles have the old permission?
+  $roles = db_select('role_permission', 'role_permission')
+    ->condition('permission', $old_permission)
+    ->condition('module', 'workbench_moderation')
+    ->fields('role_permission', array('rid'))
+    ->execute()
+    ->fetchCol();
+
+  // Grant these roles the new permission. Normally, this would use
+  // user_role_grant_permissions(), but since update hooks run regardless of
+  // whether a module is enabled, we can't guarantee that workbench_moderation
+  // permissions will be available when user.module invokes hook_permission().
+  foreach ($roles as $rid) {
+    db_merge('role_permission')
+      ->key(array(
+        'rid' => $rid,
+        'permission' => $new_permission,
+      ))
+      ->fields(array(
+        'module' => 'workbench_moderation',
+      ))
+      ->execute();
+  }
+
+  // Delete all grants of the old permission.
+  db_delete('role_permission')
+    ->condition('permission', $old_permission)
+    ->condition('module', 'workbench_moderation')
+    ->execute();
+
+  return t('The renamed permission was updated for !count roles.', array('!count' => count($roles)));
+}
+
+/**
+ * Use "Published" instead of "Publish" and "Needs Review" instead of "Review" for state names.
+ */
+function workbench_moderation_update_7004() {
+
+  // Update workbench_moderation_states
+  db_update('workbench_moderation_states')
+    ->fields(array(
+      'description' => 'Draft content is visible only to its author',
+    ))
+    ->condition('Name', 'Draft', '=')
+    ->execute();
+
+  db_update('workbench_moderation_states')
+    ->fields(array(
+      'Name' => 'Needs Review',
+      'description' => 'Needs Review content is brought to the attention administrators and editors who may then publish it',
+    ))
+    ->condition('Name', 'Review', '=')
+    ->execute();
+
+  db_update('workbench_moderation_states')
+    ->fields(array(
+      'Name' => 'Published', // Normally we would use workbench_moderation_state_published(), but we can't guarantee that workbench_moderation is enabled.
+      'description' => 'Published content is visible to the world',
+    ))
+    ->condition('Name', 'Publish', '=')
+    ->execute();
+
+  // Update workbench_moderation_transitions
+  db_update('workbench_moderation_transitions')
+    ->fields(array(
+      'from_name' => 'Needs Review',
+    ))
+    ->condition('from_name', 'Review', '=')
+    ->execute();
+
+  db_update('workbench_moderation_transitions')
+    ->fields(array(
+      'to_name' => 'Needs Review',
+    ))
+    ->condition('to_name', 'Review', '=')
+    ->execute();
+
+  db_update('workbench_moderation_transitions')
+    ->fields(array(
+      'from_name' => 'Published', // Normally we would use workbench_moderation_state_published(), but we can't guarantee that workbench_moderation is enabled.
+    ))
+    ->condition('from_name', 'Publish', '=')
+    ->execute();
+
+  db_update('workbench_moderation_transitions')
+    ->fields(array(
+      'to_name' => 'Published', // Normally we would use workbench_moderation_state_published(), but we can't guarantee that workbench_moderation is enabled.
+    ))
+    ->condition('to_name', 'Publish', '=')
+    ->execute();
+
+
+  // Update workbench_moderation_node_history
+  db_update('workbench_moderation_node_history')
+    ->fields(array(
+      'from_state' => 'Needs Review',
+    ))
+    ->condition('from_state', 'Review', '=')
+    ->execute();
+
+  db_update('workbench_moderation_node_history')
+    ->fields(array(
+      'state' => 'Needs Review',
+    ))
+    ->condition('state', 'Review', '=')
+    ->execute();
+
+  db_update('workbench_moderation_node_history')
+    ->fields(array(
+      'from_state' => 'Published', // Normally we would use workbench_moderation_state_published(), but we can't guarantee that workbench_moderation is enabled.
+    ))
+    ->condition('from_state', 'Publish', '=')
+    ->execute();
+
+  db_update('workbench_moderation_node_history')
+    ->fields(array(
+      'state' => 'Published', // Normally we would use workbench_moderation_state_published(), but we can't guarantee that workbench_moderation is enabled.
+    ))
+    ->condition('state', 'Publish', '=')
+    ->execute();
+
+
+  // Update role_permission table
+  // Grab all of the workbench_moderation permissions
+  $perms = db_select('role_permission', 'rp')
+    ->fields('rp', array('permission'))
+    ->condition('permission', '%moderate content from %', 'LIKE')
+    ->execute()
+    ->fetchCol();
+
+  // This function doesn't need duplicates
+  $perms  = array_unique($perms);
+
+  foreach ($perms as $key => $perm) {
+
+    $new_perm = $perm;
+    // Check that this permission hasn't had this change already
+    if (!strpos($perm, 'Published')) {
+      $new_perm = str_replace('Publish', 'Published', $perm);
+    }
+
+    // Check that this permission hasn't had this change already
+    if (!strpos($new_perm, 'Needs Review')) {
+      $new_perm = str_replace('Review', 'Needs Review', $new_perm);
+    }
+
+    //Update the records
+    db_update('role_permission')
+    ->fields(array(
+      'permission' => $new_perm,
+    ))
+    ->condition('permission', $perm, '=')
+    ->execute();
+  }
+
+  return t("Updated state names and transitions.");
+}
+
+/**
+ * Shorten descriptions for default states
+ */
+function workbench_moderation_update_7005() {
+
+  // Update workbench_moderation_states
+  db_update('workbench_moderation_states')
+    ->fields(array(
+      'description' => 'Visible only to the author',
+    ))
+    ->condition('Name', 'Draft', '=') // Normally we would use workbench_moderation_state_none(), but we can't guarantee that workbench_moderation is enabled.
+    ->execute();
+
+  db_update('workbench_moderation_states')
+    ->fields(array(
+      'description' => 'Visible to the author and editors',
+    ))
+    ->condition('Name', 'Needs Review', '=')
+    ->execute();
+
+  db_update('workbench_moderation_states')
+    ->fields(array(
+      'description' => 'Visible to the world',
+    ))
+    ->condition('Name', 'Published', '=') // Normally we would use workbench_moderation_state_published(), but we can't guarantee that workbench_moderation is enabled.
+    ->execute();
+
+  return t("Updated state descriptions.");
+}

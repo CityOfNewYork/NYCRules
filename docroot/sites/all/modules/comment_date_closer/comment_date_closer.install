@@ -1,0 +1,52 @@
+<?php
+/**
+* Implements hook_install()
+*/
+function comment_date_closer_install() {
+  // Check to see if the comment_by field exists.
+  $field = field_info_field('comment_by');
+  // If the comment_by field does not exist then create it.
+  if (empty($field)) {
+    
+$field = array(
+      'field_name' => 'comment_by',
+      'type' => 'date',
+      'entity_types' => array('node'),
+      'translatable' => TRUE,
+	'settings' => array(
+		'granularity' => array('year', 'month', 'day'),
+	  ),
+    );
+/*	$field => array(
+      		'field_name'   => 'article_date',
+      		'label'        => $t('Date'),
+      		'cardinality'  => 1,
+      		'type'         => 'date',
+    	);
+*/
+
+    $field = field_create_field($field);
+  }
+}
+
+/**
+* Implements hook_uninstall()
+*/
+function comment_date_closer_uninstall() {
+  watchdog("comment_date_closer Module", "Uninstalling module and deleting fields");
+  $types = node_type_get_types();
+  foreach($types as $type) {
+    comment_date_closer_delete_comment_by($type);
+  }
+  $field = field_info_field('comment_by');
+  if ($field) {
+    field_delete_field('comment_by', FALSE);
+  }
+}
+
+function comment_date_closer_delete_comment_by($type) {
+  $instance = field_info_instance('node', 'comment_by', $type->type);
+  if ($instance) {
+    field_delete_instance($instance, false);
+  }
+}

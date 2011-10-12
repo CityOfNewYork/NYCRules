@@ -1,0 +1,47 @@
+<?php
+// $Id: textsize.install,v 1.6 2011/01/04 23:13:20 christianzwahlen Exp $
+
+/**
+ * @file
+ * This file install and uninstall the Text Size module.
+ */
+
+/**
+ * Implement hook_install().
+ */
+function textsize_install() {
+  setcookie("textsize", 76, time()+(365 * 24 * 60 * 60), variable_get('textsize_cookie_domain', base_path()), "");
+  $_SESSION['textsize'] = 76;
+}
+
+/**
+ * Implement hook_uninstall().
+ */
+function textsize_uninstall() {
+  setcookie("textsize", 76, time()-31536000, variable_get('textsize_cookie_domain', base_path()), "");
+  unset($_SESSION['textsize']);
+  variable_del('textsize_block_title');
+  variable_del('textsize_block_type');
+  variable_del('textsize_link_type');
+  variable_del('textsize_element');
+  variable_del('textsize_element_class');
+  variable_del('textsize_increment');
+  variable_del('textsize_minimum');
+  variable_del('textsize_normal');
+  variable_del('textsize_display');
+  variable_del('textsize_reset');
+  variable_del('textsize_maximum');
+  variable_del('textsize_javascript');
+  variable_del('textsize_important');
+  variable_del('textsize_message');
+  variable_del('textsize_cookie_expires');
+  variable_del('textsize_cookie_domain');
+  variable_del('textsize_display_subtitle');
+  variable_del('textsize_display_increase');
+  variable_del('textsize_display_decrease');
+  variable_del('textsize_display_normal');
+  variable_del('textsize_display_links');
+  variable_del('textsize_display_current_text_value');
+  variable_del('textsize_display_list_inline');
+  variable_del('textsize_display_current_inline');
+}

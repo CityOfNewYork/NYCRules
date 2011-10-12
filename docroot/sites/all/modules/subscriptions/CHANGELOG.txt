@@ -1,0 +1,30 @@
+
+CHANGELOG for Subscriptions 1.x for Drupal 7
+
+
+subscriptions 7.x-1.x-dev:
+  - #1250572: Remove the call to the dropped subscriptions_update_9() function.
+  - Fix various porting issues, mostly related to DBTNG and comments.
+  - #1244176: Remove inadvertently-left dpm() call.
+  - #1241944: Remove hard-coded dependency on comment.module.
+  - #1236872: Fix notifications for new or updated comments.
+  - #1228214: Fully qualify field parameter in SelectQuery::condition(), SelectQuery::orderBy() calls.
+
+
+subscriptions 7.x-1.0-alpha3 (2011-07-23):
+  - Fix the List-Id header.
+  - Switch to the D7 mail system paradigm.
+  - #1212582: Implement 'Suspend own subscriptions' permission.
+  - Fix admin/config/subscriptions description.
+  - #1215140: Fix PHP5.3 issue with the Purge Queue confirmation page.
+  - #1189366: Fix name of {users} core table.
+  - Remove left-over dpm() call, too.
+
+
+subscriptions 7.x-1.0-alpha2 (2011-05-31):
+  - #1172646: Remove left-over kpr() call.
+
+subscriptions 7.x-1.0-alpha1 (2011-05-30):
+  - Various fixes.
+  - Initial port to D7 (pre-ALPHA quality).
+  - Copied Subscriptions 6.x-1.4.

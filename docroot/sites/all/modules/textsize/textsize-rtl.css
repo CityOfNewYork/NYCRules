@@ -1,0 +1,119 @@
+/* $Id: textsize-rtl.css,v 1.4 2010/01/05 11:04:37 christianzwahlen Exp $ */
+
+div.block-textsize div h3.inline {
+  padding: 0 0 0.25em 0;
+}
+
+div.block-textsize div h3.inline,
+div.textsize_inline div#edit-textsize-select-wrapper,
+div.textsize_inline div#edit-textsize-select-wrapper label,
+div.textsize_current_inline div#edit-textsize-select-wrapper select,
+ul.textsize_inline,
+ul.textsize_inline li,
+p.textsize_current_list, p.textsize_current_inline,
+ul.textsize_inline li a.ts_icon {
+  float: right;
+}
+ul.textsize_current_list,
+p.textsize_current_list,
+p.textsize_current_inline {
+  clear: left;
+}
+
+.ts_icon {
+  padding: 0 22px 0 0; /* NOTE icon specific (16 + 6 = 22px) */
+}
+/* textsize increase link, visited  */
+a.textsize_increase,
+a.textsize_increase:visited  {
+  background-position: right 0px;
+}
+ul.textsize_inline li a.textsize_increase,
+ul.textsize_inline li a.textsize_increase:visited {
+  background-position: right 0px; /* NOTE icon specific */
+}
+
+/* textsize decrease link, visited */
+a.textsize_decrease,
+a.textsize_decrease:visited {
+  background-position: right 0px;
+}
+ul.textsize_inline li a.textsize_decrease,
+ul.textsize_inline li a.textsize_decrease:visited {
+  background-position: right 0px; /* NOTE icon specific */
+}
+
+/* textsize normal link, visited  */
+a.textsize_normal,
+a.textsize_normal:visited {
+  background-position: right 0px;
+}
+ul.textsize_inline li a.textsize_normal,
+ul.textsize_inline li a.textsize_normal:visited {
+  background-position: right 0px; /* NOTE icon specific */
+}
+
+/* textsize hover  */
+a.textsize_increase:hover,
+a.textsize_decrease:hover,
+a.textsize_normal:hover  {
+  background-position: right -100px;
+}
+
+/* textsize increase hover inline */
+ul.textsize_inline li a.textsize_increase:hover {
+  background-position: right -100px; /* NOTE icon specific */
+}
+/* textsize decrease hover inline */
+ul.textsize_inline li a.textsize_decrease:hover {
+  background-position: right -100px; /* NOTE icon specific */
+}
+/* textsize normal hover inline */
+ul.textsize_inline li a.textsize_normal:hover {
+  background-position: right -100px; /* NOTE icon specific */
+}
+
+/* textsize focus/active */
+a.textsize_increase:focus,
+a.textsize_decrease:focus,
+a.textsize_normal:focus,
+a.textsize_increase:active,
+a.textsize_decrease:active,
+a.textsize_normal:active {
+  background-position: right -200px;
+}
+/* textsize increase focus/active inline */
+ul.textsize_inline li a.textsize_increase:focus,
+ul.textsize_inline li a.textsize_increase:active  {
+  background-position: right -200px; /* NOTE icon specific */
+}
+/* textsize decrease focus/active inline */
+ul.textsize_inline li a.textsize_decrease:focus,
+ul.textsize_inline li a.textsize_decrease:active  {
+  background-position: right -200px; /* NOTE icon specific */
+}
+/* textsize normal focus/active inline */
+ul.textsize_inline li a.textsize_normal:focus,
+ul.textsize_inline li a.textsize_normal:active  {
+  background-position: right -200px; /* NOTE icon specific */
+}
+
+/* admin and help */
+span.textsize_normal {
+  background: transparent url("images/normal.gif") no-repeat right 0;
+  padding: 0em 28px  0em 0.5em; /* NOTE icon specific (16 + 12 = 28px) */
+}
+div.fieldset-wrapper div.form-item-textsize-display-normal label {
+  background: transparent url("images/normal.gif") no-repeat right 0;
+}
+.ts_float_right {
+  float: left;
+}
+
+/* Drupal 7 specific */
+/* admin and help */
+body.page-admin-help-textsize div#page div#content div div div.content ul,
+body.page-admin-help-textsize div#page div#content div div div.content ol {
+  margin: 0.2em 2em 0.2em 0em;
+}
+

@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Subscriptions Content module installation.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function subscriptions_content_install() {
+  // subscriptions_content.module needs to be heavier than taxonomy.module --
+  // otherwise term_node record has not been written when subscriptions_queue() is called!
+  // subscriptions_content_cron() will ensure this constraint at run-time.
+  $weight = 1 + db_select('system', 's')
+    ->fields('s', array('weight'))
+    ->condition('s.name', 'taxonomy')
+    ->condition('s.type', 'module')
+    ->execute()
+    ->fetchField();
+  db_update('system')
+    ->fields(array('weight' => $weight))
+    ->condition('type', 'module')
+    ->condition('name', 'subscriptions_content')
+    ->execute();
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function subscriptions_content_update_last_removed() {
+  return 1;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function subscriptions_content_uninstall() {
+}

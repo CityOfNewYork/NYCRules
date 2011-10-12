@@ -1,0 +1,63 @@
+<?php
+function agency_prepopulate_form_alter(&$form, &$form_state, $form_id) {
+	
+	//watchdog("agency_prepopulate", 'form_id %field_agency', array('%field_agency' => print_r($form_id, true)));
+	global $user;
+	if($form_id == "pre_proposed_rules_node_form" || $form_id == "proposed_rules_node_form" || $form_id == "adopted_rules_node_form"){
+		//watchdog("agency_prepopulate", 'field_agency %field_agency', array('%field_agency' => print_r($form, true)));
+		unset($form['field_agency']);
+		if(in_array('Agency Administrator', $user->roles)){
+			unset($form['group_audience']);
+		}
+	}
+
+}
+/**
+ * 1. Find out group_audience of the node
+ * 2. Find out taxonomy id for agency
+ *  
+ */
+function agency_prepopulate_node_presave($node) {
+
+	global $user;
+	if(in_array('Agency Administrator', $user->roles)){
+		//watchdog("agency_prepopulate", 'roles %roles', array('%roles' => print_r($user->roles, true)));
+		//watchdog("agency_prepopulate", 'agency_admin IS agency_admin', array('%user' => print_r($user, true)));
+		//watchdog("agency_prepopulate", 'user %user', array('%user' => print_r($user, true)));
+		$query = "SELECT gid FROM {og_membership} WHERE etid = :uid AND entity_type = 'user' LIMIT 1";
+		$gid = db_query($query, array(':uid'=>$user->uid))->fetchField();
+		watchdog("agency_prepopulate", 'gid %gid', array('%gid' => print_r($gid, true)));
+		$node->group_audience['und'][0]['gid'] = $gid;
+	}
+
+	
+	//watchdog("agency_prepopulate", 'node  %node', array('%node' => print_r($node->type, true)));
+	if($node->type != "pre_proposed_rules" && $node->type != "proposed_rules" && $node->type != "adopted_rules"){
+		return;
+	}	
+
+	$gid = $node->group_audience;
+	$gid = $gid['und'][0]['gid'];
+	//watchdog("agency_prepopulate", 'field_gaency  %field_agency', array('%field_agency' => print_r($gid, true)));
+
+	$query = "SELECT label FROM {og} WHERE gid = :gid";
+	$agency_label = db_query($query, array(':gid'=>$gid))->fetchField();
+	//watchdog("agency_prepopulate", 'agency label %label', array('%label' => print_r($agency_label, true)));
+	
+	//taxonomy id that should be used for prepopulation	
+	$agency_tid = taxonomy_get_term_by_name($agency_label);
+	$agency_tid = array_pop($agency_tid);
+	$agency_tid = $agency_tid->tid;
+	//watchdog("agency_prepopulate", 'agency tid %agency_tid', array('%agency_tid' => print_r($agency_tid, true)));
+	
+	
+	//$tid = $node->field_agency['en'][0]['tid'];
+	//Array indeces must change if locale module is disabled	
+	$node->field_agency['en'][0]['tid'] = $agency_tid;
+	
+	//watchdog("agency_prepopulate", 'tid %agency_tid', array('%agency_tid' => print_r($tid, true)));
+
+
+
+	
+}

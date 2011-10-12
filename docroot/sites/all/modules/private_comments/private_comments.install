@@ -1,0 +1,62 @@
+<?php
+
+/**
+* Implements hook_install()
+*/
+function private_comments_install() {
+  // Check to see if the is_public field exists.
+  $field = field_info_field('is_public');
+  // If the is_public field does not exist then create it.
+  if (empty($field)) {
+/*    
+$field = array(
+      'field_name' => 'comment_by',
+      'type' => 'date',
+      'entity_types' => array('node'),
+      'translatable' => TRUE,
+	'settings' => array(
+		'granularity' => array('year', 'month', 'day'),
+	  ),
+    );
+*/
+$field = array(
+    'field_name' => 'is_public', 
+    'type' => 'list_boolean', 
+    'entity_types' => array('comment'),
+    'translatable' => TRUE,
+    'settings' => array(
+      // Make sure that 0 works as a 'on' value'.
+      'allowed_values' => array(
+        0 => 'Private',
+        1 => 'Public',
+      ),
+    ),
+  );
+
+
+    $field = field_create_field($field);
+  }
+}
+
+/**
+* Implements hook_uninstall()
+*/
+function private_comments_uninstall() {
+  watchdog("private_comments", "Uninstalling module and deleting fields");
+  $types = node_type_get_types();
+  foreach($types as $type) {
+    private_comments_delete_comment_by($type);
+  }
+  $field = field_info_field('is_public');
+  if ($field) {
+    field_delete_field('is_public', FALSE);
+  }
+}
+
+function private_comments_delete_comment_by($type) {
+  $instance = field_info_instance('comment', 'is_public', "comment_node_$type->type");
+
+  if ($instance) {
+    field_delete_instance($instance, false);
+  }
+}

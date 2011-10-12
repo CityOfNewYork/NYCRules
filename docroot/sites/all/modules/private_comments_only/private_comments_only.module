@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * private_comments_only.module
+ * All comments for proposed rules will be made pivate. Override standard message when submitting comments.
+ */
+
+//do not publish private comments
+function private_comments_only_comment_presave($comment) {
+	if($comment->node_type == "comment_node_proposed_rules"){
+		$comment->status = "0";
+		$_SESSION['comment_published'] = "0";
+		//watchdog("private_comments", 'setting comment status to %status', array('%status' => print_r($comment, true)));
+	}
+}
+
+
+//alter submit comments form for selected content types
+function private_comments_only_form_alter(&$form, $form_state, $form_id) {
+	if( $form_id == "comment_node_proposed_rules_form" ){
+		$form['#submit'][] = 'private_comments_only_comments_form_submit';
+	}
+}
+function private_comments_only_comments_form_submit($form, &$form_state){
+
+	//if comment is pivate we clear the messages and display a new message
+
+	if(isset($_SESSION['comment_published']) &&  $_SESSION['comment_published'] == "0"){
+		unset($_SESSION['messages']);
+		unset($_SESSION['comment_published']);
+		drupal_set_message("Your comment has been sent to the site moderator and will remain private.");
+	}
+}

@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Views integration for Workbench.
+ */
+
+/**
+ * Implementation of hook_views_api().
+ */
+function workbench_files_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+/**
+ * Implementation of hook_views_default_views().
+ */
+function workbench_files_views_default_views() {
+  return workbench_load_all_exports('workbench_files', 'views', 'view.inc', 'view');
+}
+
+/**
+ * Implementation of hook_preprocess_views_view_table().
+ *
+ * This is done to convert the "type" field to a thumbnail for image files.
+ */
+function workbench_files_preprocess_views_view_table(&$vars) {
+
+  // Custom handling for the workbench files view
+  if ($vars['view']->name == 'workbench_files') {
+    foreach ($vars['rows'] as $id => $row) {
+      // Is this file an image?
+      if (strstr(file_get_mimetype($row['uri']), 'image')) {
+        // Is this file on the local file system?
+        if (file_exists($row['uri_1'])) {
+          $row['filemime'] = theme('image_style', array(
+            'path' => $row['uri_1'],
+            'style_name' => 'thumbnail',
+          ));
+        }
+      }
+      // Assign the databack
+      $vars['rows'][$id] = $row;
+    }
+  }
+}

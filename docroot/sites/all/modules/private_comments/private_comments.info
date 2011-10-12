@@ -1,0 +1,7 @@
+; $Id:
+name = Private Comments
+description = Allows users to choose if the comment should be public (published to the site), or pivate (sent to the site moderator)
+core=7.x
+files[] = private_comments.module
+files[] = private_comments.install
+configure=admin/config/private_comments/settings

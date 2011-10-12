@@ -1,0 +1,234 @@
+/* ---------- Basic Layout Styles ----------- */
+
+html,
+body,
+#page  {
+  height: 100%;
+}
+#page-wrapper {
+  min-height: 100%;
+  min-width: 960px;
+}
+/*#messages div.section,*/
+#header div.section,
+#featured div.section,
+#main,
+#triptych,
+#footer-columns,
+#footer {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#header div.section {
+  position: relative;
+}
+.region-header {
+  float: left; /* LTR */
+  /*margin: 0 5px 10px;*/
+}
+.with-secondary-menu .region-header {
+  margin-top: 3em;
+}
+.without-secondary-menu .region-header {
+  /*margin-top: 15px;*/
+}
+#secondary-menu {
+  position: absolute;
+  right: 0; /* LTR */
+  top: 0;
+  width: 480px;
+}
+#content,
+#sidebar-first,
+#sidebar-second,
+.region-triptych-first,
+.region-triptych-middle,
+.region-triptych-last,
+.region-footer-firstcolumn,
+.region-footer-secondcolumn,
+.region-footer-thirdcolumn,
+.region-footer-fourthcolumn {
+  display: inline;
+  float: left; /* LTR */
+  position: relative;
+}
+.one-sidebar #content {
+  width: 720px;
+}
+.two-sidebars #content {
+  width: 480px;
+}
+.no-sidebars #content {
+  width: 960px;
+  float: none;
+}
+#sidebar-first,
+#sidebar-second {
+  width: 240px;
+}
+#main-wrapper {
+  min-height: 300px;
+}
+#content .section,
+.sidebar .section {
+  padding: 0 15px;
+}
+#breadcrumb {
+  margin: 0 15px;
+}
+.region-triptych-first,
+.region-triptych-middle,
+.region-triptych-last {
+  margin: 20px 20px 30px;
+  width: 280px;
+}
+#footer-wrapper {
+  padding: 35px 5px 30px;
+}
+.region-footer-firstcolumn,
+.region-footer-secondcolumn,
+.region-footer-thirdcolumn,
+.region-footer-fourthcolumn {
+  padding: 0 10px;
+  width: 220px;
+}
+#footer {
+  width: 940px;
+  min-width: 920px;
+}
+/*
+Added by Vlad Vinnikau 6/16/2011 
+to hide read more links on the front page
+*/
+/*
+.node-features div.link-wrapper{display:none;}
+.field-name-field-feature-thumbnail div.field-items{float:left; margin-right: 10px;}
+.field-name-field-feature-links {clear: both; margin-left:115px;}
+*/
+.block-menu {
+font-family: Georgia, Verdana, Geneva, Arial, Helvetica, sans-serif;
+font-size: 13px;
+font-weight: bold;
+color: #036;
+text-decoration: none;
+line-height: 18px;
+}
+.block-menu li{padding-top:10px;}
+/*
+#nycheader td{padding-top: 0px;}
+#nycheader table{margin: 0px; border:none;}
+*/
+.clear-fix{
+	clear:both;
+	display:block;
+}
+/********** nycrules header ************/
+#header-menu-bar ul{
+	margin: 0;
+	font-size: 14px;
+	color: #fff;
+}
+#header-menu-bar ul a{
+	color: #fff!important;
+}
+#header-menu-bar ul li{
+	float: left;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
+	list-style: none;
+}
+#header-menu-bar{
+	background-color: #004774;
+	background: url(../images/tools_bg.gif);
+	height: 32px;
+	width: 960px;
+}
+#page{
+	background: url(../images/bg_3col.jpg)!important;
+}
+#main{
+	background: #fff;
+}
+#top-banner-container{
+	background: url(../images/top_banner_bg.jpg);
+}
+.views-field-field-feature-body p, .views-field-field-feature-links{margin-left:110px;}
+.views-field-field-feature-body p{margin-bottom:5px;}
+.views-field-field-feature-thumbnail{float:left;}
+
+.view-features .views-field-title{
+font-size: 12px;
+font-family: Georgia;
+font-weight: bold;
+margin-left: 110px;
+line-height: 16px;
+color: #333;
+}
+
+.view-features .views-row{margin-bottom:15px;}
+/* recaptcha fix */
+#recaptcha_response_field{position: static!important;}
+/******** Links on basic page **********/
+.field-name-field-feature-links ul, .views-field-field-feature-links{
+	list-style: none outside url("/sites/all/themes/nycrules/images/theme_images/arrow.gif");
+/*	
+ 	background-image: url("/sites/all/themes/nycrules/images/theme_images/arrow.gif");
+    	background-position: 2px 12px;
+    	background-repeat: no-repeat;
+*/
+}
+.field-name-field-feature-links div.field-items{padding-left: 15px;}
+/************ PDF on basic page **************/
+.field-name-field-rule-pdf{line-height:24px;}
+.field-name-field-rule-pdf
+#block-system-navigation li a.active{color: #990000!important;}
+/******	nyc.gov header ********/
+#nycGovHeader{
+	width:960px;
+	height: 48px;
+	background: url("/sites/all/themes/nycrules/images/theme_images/nyc_gov_logo.jpg") no-repeat;
+}
+#nycGovHeader ul{
+	list-style:none;
+	padding: 0px;
+	margin: 0px;
+}
+#nycGovHeader ul li{
+	float: left;
+	display:block;
+	height: 24px;
+}
+#nycGovHeader ul li a{
+display: block;
+overflow: hidden;
+text-indent: -99999px;
+}
+ul#nycGovHeaderTop li#search{
+	width: 46px;
+	padding-left: 753px;
+}
+ul#nycGovHeaderTop li#email{
+	width: 96px;
+}
+ul#nycGovHeaderTop li#contact{
+	width: 65px;
+}
+ul#nycGovHeaderBottom li#residents{
+	width: 79px;
+	padding-left: 522px;
+}
+ul#nycGovHeaderBottom li#business{
+	width: 72px;
+}
+ul#nycGovHeaderBottom li#visitors{
+	width: 65px;
+}
+ul#nycGovHeaderBottom li#government{
+	width: 90px;
+}
+ul#nycGovHeaderBottom li#officeOfTheMayor{
+	width: 131px;
+}
+

@@ -1,0 +1,338 @@
+<?php
+// $Id: textsize.module,v 1.9 2011/01/04 23:13:20 christianzwahlen Exp $
+
+/**
+ * @file
+ * Display a text size changer on the page for a better web accessibility.
+ */
+
+/**
+ * Include textsize .inc files.
+ */
+module_load_include('inc', 'textsize', 'includes/textsize.admin');
+module_load_include('inc', 'textsize', 'includes/textsize.block');
+
+/**
+ * Implement hook_permission().
+ */
+function textsize_permission() {
+  return array(
+    'administer textsize' => array(
+      'title' => t('Administer Text Size'),
+    ),
+    'access textsize content' => array(
+      'title' => t('Access Text Size content'),
+    ),
+  );
+}
+
+/**
+ * Implement hook_menu().
+ */
+function textsize_menu() {
+  $items = array();
+  $items['admin/config/user-interface/textsize'] = array(
+    'title' => 'Text Size',
+    'description' => 'Settings for the display and values.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('textsize_admin_settings'),
+    'access arguments' => array('administer textsize'),
+  );
+  $items['textsize/increase'] = array(
+    'title' => 'Text Size Increase',
+    'page callback' => 'textsize_increase',
+    'description' => 'Decrease text size.',
+    'access arguments' => array('access textsize content'),
+    'menu_name' => 'textsize',
+  );
+  $items['textsize/decrease'] = array(
+    'title' => 'Text Size Decrease',
+    'page callback' => 'textsize_decrease',
+    'description' => 'Increase text size.',
+    'access arguments' => array('access textsize content'),
+    'menu_name' => 'textsize',
+  );
+  $items['textsize/normal'] = array(
+    'title' => 'Text Size Normal',
+    'page callback' => 'textsize_normal',
+    'description' => 'Set the text size to normal.',
+    'access arguments' => array('access textsize content'),
+    'menu_name' => 'textsize',
+  );
+  $items['textsize/set'] = array(
+    'title' => 'Text Size',
+    'page callback' => 'textsize_set',
+    'description' => 'Set the text size.',
+    'access arguments' => array('access textsize content'),
+    'menu_name' => 'textsize',
+  );
+  return $items;
+}
+
+/**
+ * Implement hook_block_info().
+ */
+function textsize_block_info() {
+  $blocks['form']['info'] = textsize_block_title($title = 'title');
+  $blocks['form']['cache'] = DRUPAL_NO_CACHE;
+  return $blocks;
+}
+
+/**
+ * Implement hook_block_view().
+ */
+function textsize_block_view($delta = '') {
+  $textsize_cookie_expires = textsize_cookie_expires($mode = 'php');
+  $textsize_cookie_domain = variable_get('textsize_cookie_domain', base_path());
+  $block_title = textsize_block_title($title = 'title');
+  $textsize_normal = variable_get('textsize_normal', 76);
+  $textsize_increment = variable_get('textsize_increment', 6);
+  $textsize_current_text = variable_get('textsize_display_current_textsize', 'display');
+  $textsize_block_title = variable_get('textsize_block_title', 'text_size');
+  $textsize_block_type = variable_get('textsize_block_type', 'text');
+  $block_content = theme('textsize_text');
+  switch ($textsize_block_type) {
+    case 'text':
+      $block_content = theme('textsize_text');
+    break;
+    case 'image':
+      $block_content = theme('textsize_image');
+    break;
+    case 'select':
+      $block_content = drupal_get_form('textsize_form');
+    break;
+    default:
+      $block_content = theme('textsize_text');
+  }
+  $block['content'] = $block_content;
+  if (!isset($_SESSION['textsize'])) {
+    $_SESSION['textsize'] = $textsize_normal;
+  }
+  if (!isset($_COOKIE['textsize'])) {
+    setcookie("textsize", $textsize_normal, time()+$textsize_cookie_expires, $textsize_cookie_domain, "");
+  }
+  if (user_access('access textsize content')) {
+    $block['subject'] = $block_title;
+    $block['content'] = $block_content;
+    return $block;
+  }
+}
+
+/**
+ * Check the cookie "textsize" value of changing (bye JavaScript) for anonymus user.
+ *
+ * @see textsize_set()
+ */
+function textsize_check() {
+  $cache = variable_get('cache', 0);
+  $textsize_post = array();
+  $textsize_cookie = array();
+  $textsize_post['textsize'] = 0;
+  // allowed values
+  $textsize_allowed = textsize_allowed_values();
+  // check the type and the content
+  if (isset($_POST['textsize_select'])) {
+    if (in_array($_POST['textsize_select'], $textsize_allowed)) {
+      $textsize_post['textsize'] = 1;
+    }
+  }
+  if (isset($_COOKIE['textsize'])) {
+    if (in_array($_COOKIE['textsize'], $textsize_allowed)) {
+      $textsize_cookie['textsize'] = (int) filter_xss($_COOKIE['textsize']);
+    }
+  }
+  // set session
+  if (($cache == 1) && isset($_COOKIE['textsize']) && isset($_SESSION['textsize']) && $textsize_post['textsize'] == 0) {
+    if ($textsize_cookie['textsize'] != $_SESSION['textsize']) {
+      $_SESSION['textsize'] = $textsize_cookie['textsize'];
+      if (function_exists('drupal_goto')) {
+        $dest['0'] = drupal_get_destination();
+        drupal_goto('textsize/set', $dest['0']);
+      }
+      else {
+        textsize_clear_cache();
+      }
+    }
+  }
+}
+
+/**
+ * Return the current text size.
+ *
+ * @return
+ *   The numeric value of the current text size.
+ */
+function textsize_get_current($value = 'int') {
+  $textsize_normal = variable_get('textsize_normal', 76);
+  $textsize_increment = variable_get('textsize_increment', 6);
+  $textsize_minimum = variable_get('textsize_minimum', 50);
+  $textsize_maximum = variable_get('textsize_maximum', 150);
+  $textsize_current = '100';
+  $textsize_post = array();
+  $textsize_cookie = array();
+  // allowed values
+  $textsize_allowed = textsize_allowed_values();
+  // define the value for return
+  if (!isset($_COOKIE['textsize'])) {
+    $textsize_current = $textsize_normal;
+  }
+  // $_POST
+  elseif (isset($_POST['textsize_select']) && isset($_COOKIE['textsize'])) {
+    // check the type and the content
+    if (in_array($_POST['textsize_select'], $textsize_allowed)) {
+      $textsize_post['textsize'] = (int) filter_xss($_POST['textsize_select']);
+    }
+    if ($textsize_post['textsize'] <= $textsize_maximum && $textsize_post['textsize'] >= $textsize_minimum && isset($_COOKIE['textsize'])) {
+      $textsize_current = $textsize_post['textsize'];
+    }
+  }
+  // $_COOKIE
+  elseif (isset($_COOKIE['textsize'])) {
+  $textsize_cookie = array();
+  $textsize_cookie['textsize'] = '100';
+    // check the type and the content
+    if (in_array($_COOKIE['textsize'], $textsize_allowed)) {
+      $textsize_cookie['textsize'] = (int) filter_xss($_COOKIE['textsize']);
+    }
+    if ($textsize_cookie['textsize'] <= $textsize_maximum && $textsize_cookie['textsize'] >= $textsize_minimum) {
+      $textsize_current = $textsize_cookie['textsize'];
+    }
+  }
+  else {
+    $textsize_current = $textsize_normal;
+  }
+  $textsize_current_display = textsize_display($textsize_current, 0);
+  if ($value == 'int' or ($value == 'display' && (variable_get('textsize_display', 1) == 0))) {
+    return $textsize_current;
+  }
+  elseif ($value == 'display' && (variable_get('textsize_display', 1) == 1)) {
+    return $textsize_current_display;
+  }
+}
+
+/**
+ * Print HTMl code in the head.
+ *
+ * @return
+ *   CSS HTML code in the head.
+ */
+function textsize_print_html() {
+  $textsize = textsize_get_current($value = 'int');
+  $textsize_link_type = variable_get('textsize_link_type', 'variable');
+  $textsize_element = variable_get('textsize_element', 'body');
+  $textsize_element_class = filter_xss(variable_get('textsize_element_class', ''));
+  $textsize_important = " !important";
+  if (variable_get('textsize_important', 1) == 0) {
+    $textsize_important = NULL;
+  }
+  $ts_in = variable_get('textsize_increment', 6);
+  $ts_no = variable_get('textsize_normal', 76);
+  $ts_mi = variable_get('textsize_minimum', 50);
+  $ts_ma = variable_get('textsize_maximum', 150);
+  $textsize_allowed_values = array();
+  if (is_numeric($ts_in) && is_numeric($ts_no) && is_numeric($ts_mi) && is_numeric($ts_ma)) {
+    if ($ts_in >= 1 && $ts_no >= 1 && $ts_mi >= 0 && $ts_ma >= 2) {
+      $ts_st = ($ts_no - (floor((($ts_no - $ts_mi) / $ts_in)) * $ts_in));
+      $ts_en = ($ts_no + (floor((($ts_ma - $ts_no) / $ts_in)) * $ts_in));
+    }
+  }
+  $textsize_head = $textsize_element . $textsize_element_class . ' {
+  font-size: ' . $textsize . '%' . $textsize_important . ';
+}';
+  if ($textsize_important == " !important") {
+  $textsize_head = $textsize_element . $textsize_element_class . ' {
+  font-size: ' . $textsize . '% ' . $textsize_important . ';
+}';
+    if ($textsize_link_type == 'fix') {
+      for ($value = ($ts_no - $ts_in); $value <= ($ts_no + $ts_in); $value = $value + $ts_in ) {
+        $textsize_head .= $textsize_element . '.textsize-' . $value . ' { font-size: ' . $value . '%' . $textsize_important . '; } ';
+      };
+    }
+    elseif ($textsize_link_type == 'variable') {
+      for ($value = $ts_st; $value <= $ts_en; $value = $value + $ts_in ) {
+        $textsize_head .= $textsize_element . '.textsize-' . $value . ' { font-size: ' . $value . '%' . $textsize_important . '; } ';
+      };
+    }
+  }
+//'media' => 'screen, projection, tty, tv, print'
+  drupal_add_css($textsize_head, $options = array('type' => 'inline', 'media' => 'screen'));
+}
+
+/**
+ * Cacluclate the text size for the display and link title
+ *
+ * @return
+ *   The text size for the display.
+ */
+function textsize_display($value, $tsround) {
+  $textsize_normal = variable_get('textsize_normal', 76);
+  $textsize_display = round((100 * $value / $textsize_normal), $tsround);
+  if (variable_get('textsize_display', 1) == 1) {
+    return $textsize_display;
+  }
+  else {
+    return $value;
+  }
+}
+
+/**
+ * Print Javascript and CSS in the head.
+ *
+ * Note: Required, because the values for the JavaScript variables are defined in the textsize settings page.
+ *
+ * @return
+ *   JavaScript HTML code in the head.
+ *
+ * @see textsize_admin_settings()
+ */
+function textsize_print_js_css() {
+  $textsize_cookie_expires = textsize_cookie_expires($mode = 'js');
+  $textsize_cookie_domain = variable_get('textsize_cookie_domain', base_path());
+  $textsize_element = variable_get('textsize_element', 'body');
+  $textsize_element_class = filter_xss(variable_get('textsize_element_class', ''));
+  $ts_in = variable_get('textsize_increment', 6);
+  $ts_no = variable_get('textsize_normal', 76);
+  $ts_mi = variable_get('textsize_minimum', 50);
+  $ts_ma = variable_get('textsize_maximum', 150);
+  $textsize_minimum = ($ts_no - (floor((($ts_no - $ts_mi) / $ts_in)) * $ts_in));
+  $textsize_maximum = ($ts_no + (floor((($ts_ma - $ts_no) / $ts_in)) * $ts_in));
+  // display
+  $textsize_increment_display = textsize_display($ts_in, 0);
+  $textsize_normal_display = textsize_display($ts_no, 0);
+  $textsize_minimum_display = textsize_display($textsize_minimum, 0);
+  $textsize_maximum_display = textsize_display($textsize_maximum, 0);
+  $textsize_display = variable_get('textsize_display', 1);
+  $textsize_current_textsize_text = textsize_block_title($title = 'current');
+  $textsize_javascript = variable_get('textsize_javascript', 1);
+  if ($textsize_javascript == 1) {
+    drupal_add_js('  var textsizeCookieExpires = ' . $textsize_cookie_expires . ';
+  var textsizeCookieDomain = "'. $textsize_cookie_domain . '";
+  var textsizeElement = "' . $textsize_element . '";
+  var textsizeElementClass = "' . $textsize_element_class . '";
+  var textsizeIncrement = ' . $ts_in . ';
+  var textsizeNormal = ' . $ts_no . ';
+  var textsizeMinimum = ' . $textsize_minimum . ';
+  var textsizeMaximum = ' . $textsize_maximum . ';
+  var textsizeIncrementDisplay = ' . $textsize_increment_display . ';
+  var textsizeNormalDisplay = ' . $textsize_normal_display . ';
+  var textsizeDisplay = ' . $textsize_display . ';
+  var textsizeMinT = "<abbr title=\"' . t("Minimum") . '\" class=\"textsize\">' . t("Min.") . '</abbr> ";
+  var textsizeMaxT = "<abbr title=\"' . t("Maximum") . '\" class=\"textsize\">' . t("Max.") . '</abbr> ";
+  var textsizeCurrentText = "' . $textsize_current_textsize_text . '";
+  var textsizeReset = '. variable_get('textsize_reset', 0) . ';', 'inline');
+    drupal_add_js(drupal_get_path('module', 'textsize') . '/jquery.textsize.js');
+  }
+  drupal_add_css(drupal_get_path('module', 'textsize') . '/textsize.css');
+}
+
+/**
+ * Implement hook_init().
+ */
+function textsize_init() {
+  // Execute the defined functions.
+  textsize_print_html();
+  textsize_print_js_css();
+  textsize_check();
+  // Add jQuery Cookie Plugin for for anonymous users .
+  drupal_add_js('misc/jquery.cookie.js');
+}

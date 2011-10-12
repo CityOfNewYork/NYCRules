@@ -1,0 +1,5 @@
+; $Id:
+name = Private Comments Only
+description = All comments for proposed rules will be made pivate
+core=7.x
+files[] = private_comments.module

@@ -1,0 +1,895 @@
+# $Id: textsize.pot,v 1.7 2010/06/04 18:07:35 christianzwahlen Exp $
+#
+# LANGUAGE translation of Drupal (Text Size Module)
+# Copyright 2009 Zwahlen <info@zwahlendesign.ch>
+# Generated from files:
+#  textsize-image.tpl.php: n/a
+#  textsize-text.tpl.php: n/a
+#  textsize.module: n/a
+#  jquery.textsize.js: n/a
+#  includes/textsize.admin.inc: n/a
+#  textsize.install: n/a
+#  textsize.info: n/a
+#  includes/textsize.block.inc: n/a
+#
+
+msgid ""
+msgstr ""
+"Project-Id-Version: textsize (6.x-1.8.x)\n"
+"POT-Creation-Date: 2010-05-21 16:23+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: textsize-image.tpl.php:34;34 textsize-text.tpl.php:34;34
+msgid "Increase"
+msgstr ""
+
+#: textsize-image.tpl.php:37;37 textsize-text.tpl.php:37;37
+msgid "Decrease"
+msgstr ""
+
+#: textsize-image.tpl.php:40;40 textsize-text.tpl.php:40;40
+msgid "Normal"
+msgstr ""
+
+#: textsize.module:322 jquery.textsize.js:0;0
+msgid "Minimum"
+msgstr ""
+
+#: textsize.module:322 jquery.textsize.js:0;0
+msgid "Min."
+msgstr ""
+
+#: textsize.module:323 jquery.textsize.js:0;0
+msgid "Maximum"
+msgstr ""
+
+#: textsize.module:323 jquery.textsize.js:0;0
+msgid "Max."
+msgstr ""
+
+#: textsize.module:353 includes/textsize.admin.inc:38
+msgid "jQuery plugins"
+msgstr ""
+
+#: textsize.module:358
+msgid "Drupal's !link_jquery_plugin Module Required for Text Size functionality."
+msgstr ""
+
+#: textsize.module:19
+msgid "administer textsize"
+msgstr ""
+
+#: textsize.module:19
+msgid "access textsize content"
+msgstr ""
+
+#: textsize.module:28 textsize.install:154;154 includes/textsize.admin.inc:32;33;34;34
+msgid "Text Size configuration"
+msgstr ""
+
+#: textsize.module:29
+msgid "Settings for the display and values."
+msgstr ""
+
+#: textsize.module:35
+msgid "Text Size Increase"
+msgstr ""
+
+#: textsize.module:37
+msgid "Decrease text size."
+msgstr ""
+
+#: textsize.module:42
+msgid "Text Size Decrease"
+msgstr ""
+
+#: textsize.module:44
+msgid "Increase text size."
+msgstr ""
+
+#: textsize.module:49
+msgid "Text Size Normal"
+msgstr ""
+
+#: textsize.module:51
+msgid "Set the text size to normal."
+msgstr ""
+
+#: textsize.module:56 textsize.install:56;60;65;69;74;79;92;96;101;105;110;114;119;121;125;127;132;134;138;140;152;155 textsize.info:0 includes/textsize.admin.inc:76;77;78;125;162;166 includes/textsize.block.inc:249
+msgid "Text Size"
+msgstr ""
+
+#: textsize.module:58
+msgid "Set the text size."
+msgstr ""
+
+#: textsize.install:56;60;65;69;74;79;92;96;101;105;110;114;119;121;125;127;132;134;138;140;152;155
+msgid "module"
+msgstr ""
+
+#: textsize.install:56;60;65;69;74;79;92;96;101;105;110;114;119;121;125;127;132;134;138;140;152;155
+msgid "Update"
+msgstr ""
+
+#: textsize.install:56;60;65;69;74;79;92;96;101;105;110;114;152
+msgid "Variable updated:"
+msgstr ""
+
+#: textsize.install:119;125;132;138
+msgid "Variable deleted:"
+msgstr ""
+
+#: textsize.install:121;127;134;140
+msgid "Variable added:"
+msgstr ""
+
+#: textsize.install:154;154 includes/textsize.admin.inc:301;501;505;510
+msgid "Cookie Domain"
+msgstr ""
+
+#: textsize.install:155
+msgid "The cookie domain is now editable on:"
+msgstr ""
+
+#: textsize.install:155
+msgid "For a compatibility to old cookies, use:"
+msgstr ""
+
+#: textsize.info:0
+msgid "Display a adjustable text size changer or a zoom function on the page for a better web accessibility."
+msgstr ""
+
+#: textsize.info:0
+msgid "User interface"
+msgstr ""
+
+#: includes/textsize.admin.inc:14;15;139
+msgid "PHP: Hypertext Preprocessor"
+msgstr ""
+
+#: includes/textsize.admin.inc:16
+msgid "My Structured Query Language"
+msgstr ""
+
+#: includes/textsize.admin.inc:17;140
+msgid "Extensible Hypertext Markup Language"
+msgstr ""
+
+#: includes/textsize.admin.inc:18;19;141;396
+msgid "Cascading Style Sheets"
+msgstr ""
+
+#: includes/textsize.admin.inc:20;29;29;142
+msgid "Web Content Accessibility Guidelines"
+msgstr ""
+
+#: includes/textsize.admin.inc:21;30;30;143
+msgid "Barrierefreie Informationstechnik-Verordnung"
+msgstr ""
+
+#: includes/textsize.admin.inc:22
+msgid "Portable Network Graphics"
+msgstr ""
+
+#: includes/textsize.admin.inc:23
+msgid "Graphic Interchange Format"
+msgstr ""
+
+#: includes/textsize.admin.inc:24
+msgid "Scalable Vector Graphics"
+msgstr ""
+
+#: includes/textsize.admin.inc:25
+msgid "eXperimental Computing Facility"
+msgstr ""
+
+#: includes/textsize.admin.inc:26;144
+msgid "Identification"
+msgstr ""
+
+#: includes/textsize.admin.inc:27
+msgid "Equal measurement"
+msgstr ""
+
+#: includes/textsize.admin.inc:28
+msgid "PHP: Hypertext Preprocessor Template"
+msgstr ""
+
+#: includes/textsize.admin.inc:29;30;31;36
+msgid "External link to:"
+msgstr ""
+
+#: includes/textsize.admin.inc:31;31
+msgid "Mozilla Firefox"
+msgstr ""
+
+#: includes/textsize.admin.inc:32
+msgid "Permissions"
+msgstr ""
+
+#: includes/textsize.admin.inc:33
+msgid "Blocks"
+msgstr ""
+
+#: includes/textsize.admin.inc:35;35
+msgid "Import"
+msgstr ""
+
+#: includes/textsize.admin.inc:35;100
+msgid "Translate interface"
+msgstr ""
+
+#: includes/textsize.admin.inc:36;121
+msgid "Download Themes"
+msgstr ""
+
+#: includes/textsize.admin.inc:36;36
+msgid "Text Size home page"
+msgstr ""
+
+#: includes/textsize.admin.inc:37;37;145;145;279;398;398
+msgid "Overwrite text size in templates"
+msgstr ""
+
+#: includes/textsize.admin.inc:39;40;146;147;148;149;150;151
+msgid "Footnote"
+msgstr ""
+
+#: includes/textsize.admin.inc:43;59;76;77;78;95;105
+msgid "Screenshot of block:"
+msgstr ""
+
+#: includes/textsize.admin.inc:43;59;78;78;174
+msgid "Select menu"
+msgstr ""
+
+#: includes/textsize.admin.inc:44
+msgid "This module display a adjustable text size changer or a zoom function on the page for a better web accessibility."
+msgstr ""
+
+#: includes/textsize.admin.inc:45
+msgid "The zoom function is comparable to the text zoom function in Firefox 3, but this module resize also variable media objects, variable pixel images and vector images."
+msgstr ""
+
+#: includes/textsize.admin.inc:46
+msgid "Advantages compared with browser zoom"
+msgstr ""
+
+#: includes/textsize.admin.inc:48
+msgid "Adjustable."
+msgstr ""
+
+#: includes/textsize.admin.inc:48
+msgid "Increases/decreases step, minimum, maximum, standard and variable or three fixed values."
+msgstr ""
+
+#: includes/textsize.admin.inc:49
+msgid "Resize region definable."
+msgstr ""
+
+#: includes/textsize.admin.inc:49
+msgid "For example a element with a !abbr_id \"%content\":"
+msgstr ""
+
+#: includes/textsize.admin.inc:50
+msgid "Browser independent."
+msgstr ""
+
+#: includes/textsize.admin.inc:51
+msgid "One click function."
+msgstr ""
+
+#: includes/textsize.admin.inc:51
+msgid "No tutorial required."
+msgstr ""
+
+#: includes/textsize.admin.inc:52
+msgid "Same handling in any browser (shortcuts)."
+msgstr ""
+
+#: includes/textsize.admin.inc:53
+msgid "Resize text, variable images and media objects (media objects and pixel images with \"!abbr_em\" or \"&#037;\" size specification and !abbr_svg images)."
+msgstr ""
+
+#: includes/textsize.admin.inc:54
+msgid "Select menu availabe."
+msgstr ""
+
+#: includes/textsize.admin.inc:55
+msgid "Display current text size (zoom size)."
+msgstr ""
+
+#: includes/textsize.admin.inc:58
+msgid "Features"
+msgstr ""
+
+#: includes/textsize.admin.inc:61
+msgid "!abbr_wcag and !abbr_bitv conform. More Information on: !link_wcag and !link_bitv."
+msgstr ""
+
+#: includes/textsize.admin.inc:61
+msgid "Keep the conditions:"
+msgstr ""
+
+#: includes/textsize.admin.inc:63
+msgid "!abbr_wcag/!abbr_bitv 1.1: Short text equivalents for images."
+msgstr ""
+
+#: includes/textsize.admin.inc:64
+msgid "!abbr_wcag/!abbr_bitv 3.1: Standard links with text without images in the source code."
+msgstr ""
+
+#: includes/textsize.admin.inc:65
+msgid "!abbr_wcag/!abbr_bitv 6.3: No !javascript required."
+msgstr ""
+
+#: includes/textsize.admin.inc:66
+msgid "!abbr_wcag/!abbr_bitv 11.1: Open and standard code."
+msgstr ""
+
+#: includes/textsize.admin.inc:67
+msgid "!abbr_wcag/!abbr_bitv 13.6: Links in a list."
+msgstr ""
+
+#: includes/textsize.admin.inc:70
+msgid "No !javascript required. !jquery suppport."
+msgstr ""
+
+#: includes/textsize.admin.inc:71
+msgid "No !abbr_css required."
+msgstr ""
+
+#: includes/textsize.admin.inc:72
+msgid "Minimum and maximum text size."
+msgstr ""
+
+#: includes/textsize.admin.inc:73
+msgid "Caching mode: \"Normal\" and \"Aggressive\" compatible."
+msgstr ""
+
+#: includes/textsize.admin.inc:74
+msgid "Uniform markin of menu, based on the open source browser Firefox 2.0/3.0 (!link_ff)."
+msgstr ""
+
+#: includes/textsize.admin.inc:75;170
+msgid "Block type"
+msgstr ""
+
+#: includes/textsize.admin.inc:76;76;172;177
+msgid "Text links"
+msgstr ""
+
+#: includes/textsize.admin.inc:77;77;95;173
+msgid "Image links"
+msgstr ""
+
+#: includes/textsize.admin.inc:80
+msgid "Themable."
+msgstr ""
+
+#: includes/textsize.admin.inc:82;177
+msgid "Images are showed with !abbr_css."
+msgstr ""
+
+#: includes/textsize.admin.inc:82;177
+msgid "Ideal for Web Accessibility."
+msgstr ""
+
+#: includes/textsize.admin.inc:83
+msgid "No Link text, only images in the !abbr_xhtml source code with standard 0 pixel margin."
+msgstr ""
+
+#: includes/textsize.admin.inc:83;116;177;217;281;306;351;363;514;517;528
+msgid "Warning"
+msgstr ""
+
+#: includes/textsize.admin.inc:83
+msgid "Not for: !abbr_wcag/!abbr_bitv 3.1! If !javascript is not activated: No image change action if the cursor move over the images!"
+msgstr ""
+
+#: includes/textsize.admin.inc:87
+msgid "Requirements"
+msgstr ""
+
+#: includes/textsize.admin.inc:90
+msgid "Drupal module:"
+msgstr ""
+
+#: includes/textsize.admin.inc:91
+msgid "Theme or a theme region with font sitze \"!abbr_em\", \"&#037;\" or no sitze for the !internet_explorer browser."
+msgstr ""
+
+#: includes/textsize.admin.inc:94
+msgid "Settings"
+msgstr ""
+
+#: includes/textsize.admin.inc:97;98;99;100
+msgid "Go to:"
+msgstr ""
+
+#: includes/textsize.admin.inc:97;98;99;100
+msgid "Administer"
+msgstr ""
+
+#: includes/textsize.admin.inc:97
+msgid "User management"
+msgstr ""
+
+#: includes/textsize.admin.inc:97
+msgid "Set the different roles."
+msgstr ""
+
+#: includes/textsize.admin.inc:98;100
+msgid "Site building"
+msgstr ""
+
+#: includes/textsize.admin.inc:98
+msgid "Make the block \"Text Size\" visibile."
+msgstr ""
+
+#: includes/textsize.admin.inc:99
+msgid "Site configuration"
+msgstr ""
+
+#: includes/textsize.admin.inc:99
+msgid "Change the settings if you want."
+msgstr ""
+
+#: includes/textsize.admin.inc:100
+msgid "Import your language file (for German \"!de_po\") if it is necessary."
+msgstr ""
+
+#: includes/textsize.admin.inc:103
+msgid "Theming"
+msgstr ""
+
+#: includes/textsize.admin.inc:104
+msgid "Create Themes"
+msgstr ""
+
+#: includes/textsize.admin.inc:105;116
+msgid "Image links, not in a list"
+msgstr ""
+
+#: includes/textsize.admin.inc:107
+msgid "Copy the files/directorys in your theme:"
+msgstr ""
+
+#: includes/textsize.admin.inc:116
+msgid "Edit the !abbr_php and !abbr_css code in the files."
+msgstr ""
+
+#: includes/textsize.admin.inc:116
+msgid "Example:"
+msgstr ""
+
+#: includes/textsize.admin.inc:116
+msgid "Change the following elements:"
+msgstr ""
+
+#: includes/textsize.admin.inc:116;116
+msgid "to"
+msgstr ""
+
+#: includes/textsize.admin.inc:116
+msgid "!abbr_wcag/!abbr_bitv 10.5: Adjacent hyperlinks have to be separated by printable characters surrounded by spaces."
+msgstr ""
+
+#: includes/textsize.admin.inc:116
+msgid "Not for: !abbr_wcag/!abbr_bitv 13.6! Links are not in a list."
+msgstr ""
+
+#: includes/textsize.admin.inc:117
+msgid "Edit the images. Create your own icons. The source file is in the directory:"
+msgstr ""
+
+#: includes/textsize.admin.inc:117
+msgid "!abbr_png images are for new browsers and !abbr_gif images for old browsers (!internet_explorer 6)."
+msgstr ""
+
+#: includes/textsize.admin.inc:122
+msgid "Edited templates are available from the developers website:"
+msgstr ""
+
+#: includes/textsize.admin.inc:124;125
+msgid "Screenshots"
+msgstr ""
+
+#: includes/textsize.admin.inc:154
+msgid "Global settings"
+msgstr ""
+
+#: includes/textsize.admin.inc:160
+msgid "Block title"
+msgstr ""
+
+#: includes/textsize.admin.inc:163 includes/textsize.block.inc:253
+msgid "Zoom"
+msgstr ""
+
+#: includes/textsize.admin.inc:166
+msgid "Select the block title."
+msgstr ""
+
+#: includes/textsize.admin.inc:166;177;187;209;217;227;237;247;253;259;269;275;281;287;296;306;327;333;339;345;351;363;376;382
+msgid "Default"
+msgstr ""
+
+#: includes/textsize.admin.inc:177
+msgid "Select the type of block."
+msgstr ""
+
+#: includes/textsize.admin.inc:177
+msgid "Images in the !abbr_xhtml source code."
+msgstr ""
+
+#: includes/textsize.admin.inc:177
+msgid "Not for: !abbr_wcag/!abbr_bitv 3.1! No hover action if !javascript is not activated!"
+msgstr ""
+
+#: includes/textsize.admin.inc:181
+msgid "Type of links"
+msgstr ""
+
+#: includes/textsize.admin.inc:183;187
+msgid "Variable"
+msgstr ""
+
+#: includes/textsize.admin.inc:184
+msgid "Fixed"
+msgstr ""
+
+#: includes/textsize.admin.inc:187
+msgid "Select the type of links."
+msgstr ""
+
+#: includes/textsize.admin.inc:187
+msgid "Fixed links shows only 3 options for changing the text size (Increase, decrease and normal)."
+msgstr ""
+
+#: includes/textsize.admin.inc:191
+msgid "Advanced settings"
+msgstr ""
+
+#: includes/textsize.admin.inc:197
+msgid "!abbr_xhtml element"
+msgstr ""
+
+#: includes/textsize.admin.inc:209
+msgid "Select the !abbr_xhtml element for the resize process."
+msgstr ""
+
+#: includes/textsize.admin.inc:209
+msgid "The !body element is for the whole page."
+msgstr ""
+
+#: includes/textsize.admin.inc:213
+msgid "!abbr_xhtml element !abbr_id/class"
+msgstr ""
+
+#: includes/textsize.admin.inc:217
+msgid "Define one or more !abbr_id's (\"#myid\" or \"#myid, div#myid-2\") [!footnote_4] or one or more classes (\".myclass\" or \".myclass, div.myclass-2\") for the !abbr_xhtml element."
+msgstr ""
+
+#: includes/textsize.admin.inc:217
+msgid "Empty, for the !body element."
+msgstr ""
+
+#: includes/textsize.admin.inc:217
+msgid "If you use !abbr_id's, uncheck: \"!link_ts_important\"."
+msgstr ""
+
+#: includes/textsize.admin.inc:221;449;452
+msgid "Increases/decreases step"
+msgstr ""
+
+#: includes/textsize.admin.inc:227
+msgid "Percentage for the next increase or decrease step."
+msgstr ""
+
+#: includes/textsize.admin.inc:227;237;247;269;296
+msgid "Allowed values"
+msgstr ""
+
+#: includes/textsize.admin.inc:231;471;477;487
+msgid "Minimum Text Size"
+msgstr ""
+
+#: includes/textsize.admin.inc:241;343;456
+msgid "Normal Text Size"
+msgstr ""
+
+#: includes/textsize.admin.inc:251
+msgid "Display normal text size as 100&#037;."
+msgstr ""
+
+#: includes/textsize.admin.inc:253;275;281;287;333;339;345;351
+msgid "Checked."
+msgstr ""
+
+#: includes/textsize.admin.inc:257
+msgid "Reset to normal size after maximum or minimum reached."
+msgstr ""
+
+#: includes/textsize.admin.inc:259;327;376;382
+msgid "Not checked."
+msgstr ""
+
+#: includes/textsize.admin.inc:263;481;484
+msgid "Maximum Text Size"
+msgstr ""
+
+#: includes/textsize.admin.inc:273
+msgid "Support !javascript"
+msgstr ""
+
+#: includes/textsize.admin.inc:275
+msgid "Support !javascript (!jquery) or only !abbr_php for caching mode: \"Normal\" and \"Aggressive\" and anonymous users."
+msgstr ""
+
+#: includes/textsize.admin.inc:281
+msgid "Overwrite the font-size value of the current theme (with \"!important\"). Note: The !abbr_xhtml element for the resize process can not have the value \"!important\" in the !abbr_css style \"font-size\"."
+msgstr ""
+
+#: includes/textsize.admin.inc:281
+msgid "Not checked, for less code."
+msgstr ""
+
+#: includes/textsize.admin.inc:281
+msgid "If you use the !abbr_xhtml element \"body\":"
+msgstr ""
+
+#: includes/textsize.admin.inc:281;430
+msgid "Delete in your theme the !abbr_css style:"
+msgstr ""
+
+#: includes/textsize.admin.inc:281;430
+msgid "For example"
+msgstr ""
+
+#: includes/textsize.admin.inc:285
+msgid "Display message after changing text size"
+msgstr ""
+
+#: includes/textsize.admin.inc:291;491;494;497
+msgid "Cookie Expires"
+msgstr ""
+
+#: includes/textsize.admin.inc:294;296;296
+msgid "days"
+msgstr ""
+
+#: includes/textsize.admin.inc:306;517
+msgid "After a change, the user must store the cookie again."
+msgstr ""
+
+#: includes/textsize.admin.inc:311
+msgid "Theme settings"
+msgstr ""
+
+#: includes/textsize.admin.inc:312
+msgid "Enable, disable or set the display of certain text size elements."
+msgstr ""
+
+#: includes/textsize.admin.inc:318
+msgid "Toggle display"
+msgstr ""
+
+#: includes/textsize.admin.inc:319
+msgid "Enable or disable the display of certain text size elements."
+msgstr ""
+
+#: includes/textsize.admin.inc:325
+msgid "Subtitle"
+msgstr ""
+
+#: includes/textsize.admin.inc:327
+msgid "Ideal for image links and the select menue (title as label)."
+msgstr ""
+
+#: includes/textsize.admin.inc:331
+msgid "Increase Text Size"
+msgstr ""
+
+#: includes/textsize.admin.inc:337
+msgid "Decrease Text Size"
+msgstr ""
+
+#: includes/textsize.admin.inc:349
+msgid "Link text"
+msgstr ""
+
+#: includes/textsize.admin.inc:351
+msgid "Not for block type \"Image links\" with images in the !abbr_xhtml source code."
+msgstr ""
+
+#: includes/textsize.admin.inc:355
+msgid "Display current text size text and value"
+msgstr ""
+
+#: includes/textsize.admin.inc:357;363
+msgid "Text and value"
+msgstr ""
+
+#: includes/textsize.admin.inc:357;358
+msgid "for example"
+msgstr ""
+
+#: includes/textsize.admin.inc:357;358 includes/textsize.block.inc:250
+msgid "Current Size"
+msgstr ""
+
+#: includes/textsize.admin.inc:358
+msgid "Only the value"
+msgstr ""
+
+#: includes/textsize.admin.inc:359
+msgid "Hide text and value"
+msgstr ""
+
+#: includes/textsize.admin.inc:360
+msgid "Remove text and value in the source code"
+msgstr ""
+
+#: includes/textsize.admin.inc:363
+msgid "Not for screen readers or text browsers (text is not in the !abbr_xhtml source code)."
+msgstr ""
+
+#: includes/textsize.admin.inc:367
+msgid "Display inline"
+msgstr ""
+
+#: includes/textsize.admin.inc:368
+msgid "Set the display of certain text size elements to inline or normal."
+msgstr ""
+
+#: includes/textsize.admin.inc:374
+msgid "Subtitle, list and select menu"
+msgstr ""
+
+#: includes/textsize.admin.inc:380
+msgid "Current text size"
+msgstr ""
+
+#: includes/textsize.admin.inc:423
+msgid "Minimum 1 link \"Increase Text Size\" or \"Decrease Text Size\" is required."
+msgstr ""
+
+#: includes/textsize.admin.inc:427
+msgid "The element class have to be empty for the !body element."
+msgstr ""
+
+#: includes/textsize.admin.inc:435
+msgid "The !abbr_xhtml !abbr_id/element class can not be empty."
+msgstr ""
+
+#: includes/textsize.admin.inc:435;441;444
+msgid "Textfield content"
+msgstr ""
+
+#: includes/textsize.admin.inc:438
+msgid "The !abbr_xhtml element !abbr_id/class have to be start with a hash (\"#\") for a !abbr_id or a point (\".\") for a class."
+msgstr ""
+
+#: includes/textsize.admin.inc:441
+msgid "The !abbr_xhtml element !abbr_id/class can not have only a hash (\"#\") or a point (\".\")."
+msgstr ""
+
+#: includes/textsize.admin.inc:444
+msgid "The !abbr_xhtml element !abbr_id/class can not have a empty space (\" \") after a hash (\"#\") or a point (\".\")."
+msgstr ""
+
+#: includes/textsize.admin.inc:449;456;471;481;491
+msgid "Please enter a integer in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:452
+msgid "The minimum step is 1&#037; in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:461
+msgid "The text size have been saved as %ts_value% (100&#037;)."
+msgstr ""
+
+#: includes/textsize.admin.inc:464
+msgid "The normal text size is bigger than the maximum normal size of: !ts_size%."
+msgstr ""
+
+#: includes/textsize.admin.inc:467
+msgid "The normal text size is less than the minimum normal size of: !ts_size%."
+msgstr ""
+
+#: includes/textsize.admin.inc:474
+msgid "The minimum text size can not be the same or bigger value than the normal textsize."
+msgstr ""
+
+#: includes/textsize.admin.inc:477
+msgid "The minimum size is 1&#037; in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:484
+msgid "The maximum size is 1000&#037; in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:487
+msgid "The minimum size is 3&#037; in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:494
+msgid "The minimum is 1 day in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:497
+msgid "The maximum is 3650 day in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:501
+msgid "The cookie domain can not have a empty space (\" \") as first in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:505
+msgid "Please enter a slash \"/\" as first in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:510
+msgid "Please enter only one slash \"/\" as first in:"
+msgstr ""
+
+#: includes/textsize.admin.inc:514
+msgid "The cookie domain: \"!ts_co_do\" is specific!"
+msgstr ""
+
+#: includes/textsize.admin.inc:517
+msgid "The cookie domain has been changed."
+msgstr ""
+
+#: includes/textsize.admin.inc:525
+msgid "This configuration generate not a normal text size of 100&#037; in the source code."
+msgstr ""
+
+#: includes/textsize.admin.inc:528
+msgid "This configuration generate and display not a normal text size of 100&#037;!"
+msgstr ""
+
+#: includes/textsize.block.inc:76;137;182;213;333
+msgid "The text size have not been saved, because your browser do not accept cookies."
+msgstr ""
+
+#: includes/textsize.block.inc:79;84;89
+msgid "The text size maximum is: %ts_max%."
+msgstr ""
+
+#: includes/textsize.block.inc:85;147;188
+msgid "The text size have been saved as %textsize_normal%."
+msgstr ""
+
+#: includes/textsize.block.inc:95;102;157;164
+msgid "The text size have been saved as %ts_value%."
+msgstr ""
+
+#: includes/textsize.block.inc:140;146;151
+msgid "The text size minimum is: %ts_min%."
+msgstr ""
+
+#: includes/textsize.block.inc:219
+msgid "The text size have been saved as %textsize%."
+msgstr ""
+
+#: includes/textsize.block.inc:254
+msgid "Current Zoom"
+msgstr ""
+
+#: includes/textsize.block.inc:327
+msgid "The text size have been saved as %textsize_post%."
+msgstr ""
+
+#: includes/textsize.block.inc:352
+msgid "Save"
+msgstr ""
+

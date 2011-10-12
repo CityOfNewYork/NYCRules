@@ -1,0 +1,461 @@
+/* $Id: textsize.css,v 1.6 2010/06/04 18:03:10 christianzwahlen Exp $ */
+
+/* subtitle */
+div.block-textsize div h3.list {
+  display: block;
+  float: none;
+  margin: 0;
+}
+div.block-textsize div h3.inline {
+  display: inline;
+  float: left;
+  margin: 0;
+  padding: 0 0.5em 0.25em 0em;
+}
+
+div.textsize_list div#edit-textsize-select-wrapper,
+div.textsize_list div#edit-textsize-select-wrapper label {
+  display: block;
+  float: none;
+  width: auto;
+}
+div.textsize_inline div#edit-textsize-select-wrapper,
+div.textsize_inline div#edit-textsize-select-wrapper label {
+  display: block;
+  float: left;
+  width: auto;
+}
+div.textsize_list div#edit-textsize-select-wrapper,
+div.textsize_inline div#edit-textsize-select-wrapper {
+  margin: 0;
+}
+div.textsize_list div#edit-textsize-select-wrapper label {
+  margin: 0 0 0.5em 0;
+}
+div.textsize_inline div#edit-textsize-select-wrapper label {
+  margin: 0 0.5em 0 0;
+}
+div.textsize_list select#edit-textsize-select {
+  margin: 0 0.5em 0.5em 0;
+}
+div.textsize_inline select#edit-textsize-select {
+  margin: 0 0.5em 0 0;
+}
+div.textsize_current_inline div#edit-textsize-select-wrapper select {
+  float: left;
+}
+
+/* list */
+.block ul.textsize_inline {
+  padding: 0;
+  margin: 0.2em 0 0.5em 0;
+}
+ul.textsize_inline {
+  display: block;
+  float: left;
+}
+ul.textsize_current_list {
+  clear: right;
+}
+ul.textsize_current_inline {
+  width: auto;
+}
+ul.textsize_list li {
+  list-style-type: none;
+  list-style-image: none !important; /* fix for zen theme */
+  background: transparent;
+  padding: 0;
+  margin: 0 0 0.2em 0;
+}
+ul.textsize_inline li {
+  display: block;
+  float: left;
+  list-style-type: none;
+  list-style-image: none !important; /* fix for zen theme */
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/* p */
+.block-textsize p {
+  margin: 0;
+  padding: 0;
+}
+
+/* images */
+.ts_float_right {
+  float: right;
+}
+
+/* icon */
+.ts_icon,
+a.ts_increase_variable,
+a.ts_decrease_variable,
+a.ts_normal_variable,
+a.ts_increase_fix,
+a.ts_decrease_fix,
+a.ts_normal_fix {
+  display: block;
+}
+.ts_icon {
+  float: none;
+  padding: 0 0 0 22px; /* NOTE icon specific (16 + 6 = 22px) */
+}
+ul.textsize_inline li a.ts_icon,
+ul.textsize_inline li a.ts_rollover {
+  float: left;
+}
+
+/* a */
+a.textsize_increase,
+a.ts_increase_variable,
+a.ts_increase_fix {
+  width: 16px; /* NOTE icon specific */
+  height: 16px; /* NOTE icon specific */
+}
+a.textsize_decrease,
+a.ts_decrease_variable,
+a.ts_decrease_fix {
+  width: 16px; /* NOTE icon specific */
+  height: 16px; /* NOTE icon specific */
+}
+a.textsize_normal,
+a.ts_normal_variable,
+a.ts_normal_fix {
+  width: 16px; /* NOTE icon specific */
+  height: 16px; /* NOTE icon specific */
+}
+
+/* a inline */
+ul.textsize_list a.textsize_increase,
+ul.textsize_list a.ts_increase_variable,
+ul.textsize_list a.ts_increase_fix {
+  margin: 0 0 3px 0;
+}
+ul.textsize_list a.textsize_decrease,
+ul.textsize_list a.ts_decrease_variable,
+ul.textsize_list a.ts_decrease_fix {
+  margin: 0 0 3px 0;
+}
+ul.textsize_list a.textsize_normal,
+ul.textsize_list a.ts_normal_variable,
+ul.textsize_list a.ts_normal_fix {
+  margin: 0 0 3px 0;
+}
+
+/* a inline */
+ul.textsize_inline a.textsize_increase,
+ul.textsize_inline a.ts_increase_variable,
+ul.textsize_inline a.ts_increase_fix {
+  margin: 0 3px 0 0; /* NOTE icon specific */
+  padding: 0 0 0 22px; /* NOTE icon specific (16 + 6 = 22px) */
+}
+ul.textsize_inline a.textsize_decrease,
+ul.textsize_inline a.ts_decrease_variable,
+ul.textsize_inline a.ts_decrease_fix {
+  margin: 0px 3px 0 0; /* NOTE icon specific */
+  padding: 0 0 0 22px; /* NOTE icon specific (16 + 6 = 22px) */
+}
+ul.textsize_inline a.textsize_normal,
+ul.textsize_inline a.ts_normal_variable,
+ul.textsize_inline a.ts_normal_fix {
+  margin: 0px 3px 0 0; /* NOTE icon specific */
+  padding: 0 0 0 22px; /* NOTE icon specific (16 + 6 = 22px) */
+}
+
+/* reset */
+ul.textsize_list li a.text_display,
+ul.textsize_inline li a.text_display {
+  width: auto;
+  min-height: 16px; /* NOTE icon specific */
+  height: 1em; /* NOTE icon specific (16px = 1em) */
+  margin: 0 12px 0 0;
+}
+ul.textsize_list li a.text_display_hidden,
+ul.textsize_inline li a.text_display_hidden {
+  padding: 0;
+}
+
+/* a span */
+ul.textsize_list li a span.display {
+  padding: 0px;
+  margin: 0px;
+}
+ul.textsize_list li a span.display_hidden {
+  padding: 0 3px 0.2em 0;
+}
+a.ts_icon.textsize_end {
+  cursor: crosshair;
+}
+
+/* textsize increase link, visited  */
+a.textsize_increase,
+a.textsize_increase:visited  {
+  min-height: 16px; /* NOTE icon specific */
+  height: 1em; /* NOTE icon specific (16px = 1em) */
+  background-color: transparent;
+  background-image: url("images/increase.gif");
+  background-repeat: no-repeat;
+  background-position: 0 0px;
+}
+ul.textsize_inline li a.textsize_increase,
+ul.textsize_inline li a.textsize_increase:visited {
+  background-position: 0px 0px; /* NOTE icon specific */
+}
+
+/* textsize decrease link, visited */
+a.textsize_decrease,
+a.textsize_decrease:visited {
+  min-height: 16px; /* NOTE icon specific */
+  height: 1em; /* NOTE icon specific (16px = 1em) */
+  background-color: transparent;
+  background-image: url("images/decrease.gif");
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+}
+ul.textsize_inline li a.textsize_decrease,
+ul.textsize_inline li a.textsize_decrease:visited {
+  background-position: 0px 0px; /* NOTE icon specific */
+}
+
+/* textsize normal link, visited  */
+a.textsize_normal,
+a.textsize_normal:visited {
+  min-height: 16px; /* NOTE icon specific */
+  height: 1em; /* NOTE icon specific (16px = 1em) */
+  background-color: transparent;
+  background-image: url("images/normal.gif");
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+}
+ul.textsize_inline li a.textsize_normal,
+ul.textsize_inline li a.textsize_normal:visited {
+  background-position: 0px 0px; /* NOTE icon specific */
+}
+
+/* textsize hover  */
+a.textsize_increase:hover,
+a.textsize_decrease:hover,
+a.textsize_normal:hover  {
+  /*background-position: 0 -100px;*/
+  background-repeat: no-repeat; /* fix for Opera */
+}
+
+/* textsize increase hover inline */
+ul.textsize_inline li a.textsize_increase:hover {
+  background-position: 0px -100px; /* NOTE icon specific */
+}
+/* textsize decrease hover inline */
+ul.textsize_inline li a.textsize_decrease:hover {
+  background-position: 0px -100px; /* NOTE icon specific */
+}
+/* textsize normal hover inline */
+ul.textsize_inline li a.textsize_normal:hover {
+  background-position: 0px -100px; /* NOTE icon specific */
+}
+
+/* textsize focus/active */
+a.textsize_increase:focus,
+a.textsize_decrease:focus,
+a.textsize_normal:focus,
+a.textsize_increase:active,
+a.textsize_decrease:active,
+a.textsize_normal:active {
+  /*background-position: 0 -200px;*/
+  background-repeat: no-repeat; /* fix for Opera */
+}
+/* textsize increase focus/active inline */
+ul.textsize_inline li a.textsize_increase:focus,
+ul.textsize_inline li a.textsize_increase:active  {
+  background-position: 0px -200px; /* NOTE icon specific */
+}
+/* textsize decrease focus/active inline */
+ul.textsize_inline li a.textsize_decrease:focus,
+ul.textsize_inline li a.textsize_decrease:active  {
+  background-position: 0px -200px; /* NOTE icon specific */
+}
+/* textsize normal focus/active inline */
+ul.textsize_inline li a.textsize_normal:focus,
+ul.textsize_inline li a.textsize_normal:active  {
+  background-position: 0px -200px; /* NOTE icon specific */
+}
+
+/* current */
+p.textsize_current_list,
+p.textsize_current_inline {
+  display: block;
+  float: left;
+  clear: right;
+}
+
+p.textsize_current_list {
+  width: 100%;
+}
+p.textsize_current_inline {
+  width: auto;
+  margin: 0 0.2em 0 0;  /* NOTE icon specific */
+}
+/* reset */
+p.text_display {
+  margin: 0;
+}
+
+abbr.textsize,
+span.textsize_current_help,
+p.current_text_display_hidden span#textsize_current {
+  cursor: help;
+}
+
+/**
+ * Hacks
+ * Images not for IE 4 - 5.5 and NN 4.
+ */
+head:first-child+body a.textsize_increase,
+head:first-child+body a.textsize_increase:visited {
+  background-image: url("images/increase.png") !important; /* !important for page style module */
+}
+head:first-child+body a.textsize_decrease,
+head:first-child+body a.textsize_decrease:visited {
+  background-image: url("images/decrease.png") !important; /* !important for page style module */
+}
+head:first-child+body a.textsize_normal,
+head:first-child+body a.textsize_normal:visited {
+  background-image: url("images/normal.png") !important; /* !important for page style module */
+}
+
+head:first-child+body a.textsize_increase:hover {
+  background-image: url("images/increase.png") !important; /* !important for page style module */
+}
+head:first-child+body a.textsize_decrease:hover {
+  background-image: url("images/decrease.png") !important; /* !important for page style module */
+}
+head:first-child+body a.textsize_normal:hover {
+  background-image: url("images/normal.png") !important; /* !important for page style module */
+}
+
+/* admin and help */
+.ts_ok {
+  color: #008000;
+}
+span.textsize_normal {
+  display: block;
+  width: 20em;
+  height: 2em; /* NOTE icon specific */
+  padding: 0em 0.5em 0em 28px; /* NOTE icon specific (16 + 12 = 28px) */
+  background: transparent url("images/normal.gif") no-repeat 0 0;
+}
+div.fieldset-wrapper div.form-item-textsize-display-increase label input,
+div.fieldset-wrapper div.form-item-textsize-display-decrease label input,
+div.fieldset-wrapper div.form-item-textsize-display-normal label input {
+  margin: 0em 3.5em 0em 0em; /* NOTE icon specific */
+}
+div.fieldset-wrapper div.form-item-textsize-display-increase label,
+div.fieldset-wrapper div.form-item-textsize-display-decrease label,
+div.fieldset-wrapper div.form-item-textsize-display-normal label {
+  height: 16px; /* NOTE icon specific */
+  padding-left: 2.2em;
+}
+div.fieldset-wrapper div.form-item-textsize-display-increase label {
+  background: transparent url("images/increase.gif") no-repeat 0em 0em;
+}
+div.fieldset-wrapper div.form-item-textsize-display-decrease label {
+  background: transparent url("images/decrease.gif") no-repeat 0em 0em;
+}
+div.fieldset-wrapper div.form-item-textsize-display-normal label {
+  background: transparent url("images/normal.gif") no-repeat 0em 0em;
+}
+.ts_download_button,
+a.ts_download_button:link,
+a.ts_download_button:visited {
+  display: block;
+  float: none;
+  padding: 0.5em 1em;
+  border: 1px solid #E09010;
+  margin: 1em;
+  text-decoration: underline;
+  color: #E09010;
+  background-color: #FFFFBF;
+}
+a.ts_download_button:hover {
+  border: 1px solid #000000;
+  color: #000000;
+  background-color: #FFFFBF;
+}
+a.ts_download_button:focus,
+a.ts_download_button:active {
+  border: 1px dashed #FFFFFF;
+  color: #FFFFFF;
+  background-color: #00BF00;
+}
+
+/**
+ * Erasable or editable code
+ */
+.ts_clear {
+  clear: both;
+}
+/* display hidden. If your theme have a class for "display hidden" */
+.display_hidden {
+  position: absolute;
+  left: -1000px;	
+  top: -1000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  display: inline;
+}
+/* Drupal garland theme specific */
+div#header-region div.block-textsize h2,
+div#header-region div.block-textsize div h3,
+div#header-region div div ul.textsize_list,
+div#header-region div div ul.textsize_inline,
+div#header-region div div ul.textsize_list li,
+div#header-region div div ul.textsize_inline li,
+div#header-region div div p.textsize_current_list,
+div#header-region div div p.textsize_current_inline,
+div#header-region div div form div div div#edit-textsize-select-wrapper label {
+  display: block;
+  margin: 0;
+}
+.ts_icon,
+a.ts_increase_variable,
+a.ts_decrease_variable,
+a.ts_normal_variable,
+a.ts_increase_fix,
+a.ts_decrease_fix,
+a.ts_normal_fix {
+  line-height: 100%;
+}
+div#header-region div.block-textsize div h3.inline,
+div#header-region div div form div div div#edit-textsize-select-wrapper label {
+  margin: 0 0.5em 0 0;
+}
+div#header-region div div p.textsize_current_inline {
+  margin-top: 0em;
+}
+div#header-region div div ul.textsize_inline li {
+  margin: 0 0 0 0;
+}
+select#edit-textsize-select option {
+  display: block; /* fix for Garland theme */
+}
+
+/* Drupal 7 specific */
+/* help */
+body.page-admin-help-textsize div#page div#content div div div.content p {
+  margin: 0 0 0.5em 0;
+}
+body.page-admin-help-textsize div#page div#content div div div.content hr {
+  display: block;
+}
+body.page-admin-help-textsize div#page div#content div div div.content ul,
+body.page-admin-help-textsize div#page div#content div div div.content ol {
+  margin: 0.2em 0em 0.2em 2em;
+}
+body.page-admin-help-textsize div#page div#content div div div.content ul {
+  list-style-type: disc;
+}
+body.page-admin-help-textsize div#page div#content div div div.content ol {
+  list-style-type: decimal;
+}

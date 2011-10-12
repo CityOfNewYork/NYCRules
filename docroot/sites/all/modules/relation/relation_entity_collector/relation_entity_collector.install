@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Relation entity_collector block.
+ */
+
+/**
+ * Implements hook_install. Attempts to enable block on module install.
+ */
+function relation_entity_collector_install() {
+  $select = db_select('block', 'b')
+    ->condition('status', 1)
+    ->condition('module', 'system')
+    ->condition('delta', 'management');
+  $select->addExpression(':module',  'module', array(':module' => 'relation_entity_collector'));
+  $select->addExpression(':delta',   'delta', array(':delta' => 'entity_collector'));
+  $select->addExpression('theme',    'theme');
+  $select->addExpression('status',   'status');
+  $select->addExpression('weight+1', 'weight');
+  $select->addExpression('region',   'region');
+  $select->addExpression(':pages',   'pages', array(':pages' => ''));
+  $select->addExpression(':cache',   'cache', array(':cache' => DRUPAL_NO_CACHE));
+
+  $query = db_insert('block')
+    ->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'))
+    ->from($select)
+    ->execute();
+}

@@ -1,0 +1,16 @@
+; $Id: textsize.info,v 1.6 2010/06/06 22:49:21 christianzwahlen Exp $
+name = Text Size
+description = Display a adjustable text size changer or a zoom function on the page for a better web accessibility.
+package = User interface
+core = 7.x
+files[] = textsize.module
+files[] = includes/textsize.admin.inc
+files[] = includes/textsize.block.inc
+configure = admin/config/user-interface/textsize
+
+; Information added by drupal.org packaging script on 2011-01-05
+version = "7.x-1.0"
+core = "7.x"
+project = "textsize"
+datestamp = "1294243465"
+

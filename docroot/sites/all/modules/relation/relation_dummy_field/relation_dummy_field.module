@@ -1,0 +1,155 @@
+<?php
+
+/**
+ * @file
+ * A field storing arbitrary relations between entities.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function relation_dummy_field_field_info() {
+  return array(
+    'relation' => array(
+      'label' => t('Relation'),
+      'description' => t('Stores relationships between entities.'),
+      'settings' => array(),
+      'default_widget' => 'relation_default',
+      'default_formatter' => 'relation_default',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function relation_dummy_field_field_is_empty($item, $field) {
+  return FALSE;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function relation_dummy_field_field_widget_info() {
+  return array(
+    'relation_default' => array(
+      'label' => t('Relation dummy widget'),
+      'field types' => array('relation'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function relation_dummy_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function relation_dummy_field_field_formatter_info() {
+  return array(
+    'relation_default' => array(
+      'label' => t('Default'),
+      'field types' => array('relation'),
+    ),
+    'relation_otherendpoint' => array(
+      'label' => t('Other endpoint'),
+      'field types' => array('relation'),
+    ),
+    'relation_natural' => array(
+      'label' => t('Natural language'),
+      'field types' => array('relation'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function relation_dummy_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  list($entity_id) = entity_extract_ids($entity_type, $entity);
+  switch ($display['type']) {
+    case 'relation_default':
+    case 'relation_otherendpoint':
+      foreach ($items as $delta => $item) {
+        $links = array();
+        foreach ($item->endpoints[LANGUAGE_NONE] as $endpoint) {
+          $related_entities = entity_load($endpoint['entity_type'], array($endpoint['entity_id']));
+          $related_entity = reset($related_entities);
+          if ($endpoint['entity_type'] == $entity_type && $endpoint['entity_id'] == $entity_id) {
+            if ($display['type'] == 'relation_otherendpoint') {
+              continue;
+            }
+            $link = array();
+          }
+          else {
+            $link = entity_uri($endpoint['entity_type'], $related_entity);
+            $link['href'] = $link['path'];
+          }
+          $link['title'] = entity_label($endpoint['entity_type'], $related_entity);
+          $links[] = $link;
+        }
+        $uri = entity_uri('relation', $item);
+        $relation_link = l(t('Relation @rid', array('@rid' => $item->rid)), $uri['path'], $uri['options']);
+        // Can't use #heading as it's mercilessly check_plain'd.
+        $element[$delta]['relation']['heading']['#markup'] = t('<h4>Part of !link</h4>', array('!link' => $relation_link));
+        $element[$delta]['relation']['heading']['#access'] = $display['type'] == 'relation_default';
+        $element[$delta]['relation']['links'] = array(
+          '#theme' => 'links',
+          '#links' => $links,
+        );
+      }
+      break;
+
+    case 'relation_natural':
+      $sentences = array();
+      foreach ($items as $delta => $item) {
+        $subject = entity_label($entity_type, $entity);
+        list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+        $relation_type = relation_type_load($item->relation_type);
+        $count = 0;
+        $objects = '';
+        foreach ($item->endpoints[LANGUAGE_NONE] as $endpoint) {
+          if ($endpoint['entity_type'] == $entity_type && $endpoint['entity_id'] == $id ) {
+            if ($endpoint['r_index'] == 0) {
+              $predicate = ' ' . $relation_type->label;
+            }
+            else {
+              $predicate = ' ' . $relation_type->reverse_label;
+            }
+          }
+          else {
+            $object_entities = entity_load($endpoint['entity_type'], array($endpoint['entity_id']));
+            $object_entity = reset($object_entities);
+            $object_label = entity_label($endpoint['entity_type'], $object_entity);
+            $object_uri = entity_uri($endpoint['entity_type'], $object_entity);
+            $objects .= $count ? ', ' : ' ';
+            $count += 1;
+            $objects .= l($object_label, $object_uri['path']);
+          }
+        }
+        $element[$delta]['relation'] = array(
+          '#theme' => 'item_list',
+          '#items' => array($subject . $predicate . $objects),
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_prepare_view().
+ */
+function relation_dummy_field_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+  foreach ($entities as $id => $entity) {
+    $relation_ids = array_keys(relation_query($entity_type, $id)->execute());
+    // Who knows why but field does not like if the delta does not start at 0...
+    $items[$id] = $relation_ids ? array_values(entity_load('relation', $relation_ids)) : array();
+  }
+}

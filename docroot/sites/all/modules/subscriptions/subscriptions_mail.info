@@ -1,0 +1,13 @@
+name = Subscriptions Mail
+description = Sends out mails with drupal_mail, customizable with the separate mail_edit module.
+package = "Subscriptions"
+; dependencies[] = mail_edit
+dependencies[] = subscriptions
+core = 7.x
+
+; Information added by drupal.org packaging script on 2011-08-17
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "subscriptions"
+datestamp = "1313542014"
+

@@ -1,0 +1,71 @@
+<?php
+
+/**
+* @file
+* Lets users to set up comment thread closing date.
+*
+* Adds a text field when a node is displayed
+* so that authenticated users may make notes.
+*/
+
+/**
+* Implementation of hook_menu().
+*/
+function comment_date_closer_menu() {
+  $items['admin/config/comment_date_closer'] = array(
+    'title' => 'comment date closer',
+    'description' => 'Adjust comment thread closer options.',
+    'position' => 'right',
+    'weight' => -5,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/comment_date_closer/settings'] = array(
+    'title' => 'comment date closer settings',
+    'description' => 'Change comment thread closer options.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('comment_date_closer_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'comment_date_closer.admin.inc',
+  );
+  return $items;
+}
+
+function comment_date_closer_cron(){
+	$content_types = variable_get('comment_date_closer_node_types');
+
+	$now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+	$now = gmdate("Y-m-d H:i:s", $now);
+	
+	
+	$selected_content_types = array();
+	foreach($content_types as $content_type_key => $content_type_val){
+		if(!empty($content_type_val)){
+			//watchdog('comment_date_closer', 'testing key %content_type_key val %content_type_val', array('%content_type_key' => $content_type_key, '%content_type_val' => $content_type_val));
+			$selected_content_types[] = $content_type_key;
+		}
+	}
+
+	$query = "SELECT n.nid, n.title, f.comment_by_value FROM node n, field_data_comment_by f";
+	$query .= " WHERE n.nid=f.entity_id AND n.comment = 2";
+	$query .= " AND n.type IN (:selected_content_types)";
+	$query .= " AND f.comment_by_value < :now_date AND f.comment_by_value IS NOT NULL";
+	
+	$results = db_query($query, array(
+		':now_date' => $now, 
+		':selected_content_types' => $selected_content_types
+		)
+	);
+	foreach($results as $result){
+		$node = node_load($result->nid); 
+		$node->comment = 1;
+		node_save($node);
+
+		watchdog('comment_date_closer', 'closing comment thread for node with id: %id, title: %title, comment_by date: %comment_by', array('%id' => $result->nid, '%title' => $result->title, '%comment_by' => $result->comment_by_value));
+	} 
+
+}
+
